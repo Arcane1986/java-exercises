@@ -23,8 +23,15 @@ public class HelloController {
     @RequestMapping(value = "form", method = RequestMethod.GET)
     @ResponseBody
     public String helloForm(HttpServletRequest request) {
-        return "<form action='/form' method='POST'>" +
+        return "<form action='/form' method='POST' id='Bonjour'>" +
                 "<input type='text' name='name' />" +
+                "<select name='language' form='Bonjour'>" +
+                "  <option value='english'>English</option>" +
+                "  <option value='french'>French</option>" +
+                "  <option value='spanish'>Spanish</option>" +
+                "  <option value='italian'>Italian</option>"+
+                "  <option value='german'>German</option>"+
+                "</select>"+
                 "<input type='submit' />" +
                 "</form>";
     }
@@ -34,10 +41,28 @@ public class HelloController {
     @ResponseBody
     public String helloFormPost (HttpServletRequest request) {
         String name = request.getParameter("name");
-        if (name == "") {
-            name = "World";
+        String language = request.getParameter("language");
+        String hello;
+        if (language.equals("english")) {
+            hello = "Hello";
         }
-        return "Hello " + name;
+        else if (language.equals("french")) {
+            hello = "Bonjour";
+        }
+        else if (language.equals("spanish")) {
+            hello = "Hola";
+        }
+        else if (language.equals("italian")) {
+            hello = "Ciao";
+        }
+        else{
+            hello = "Hallo";
+        }
+
+        if (name==null){
+            name="Stranger";
+        }
+        return hello +" "+ name;
     }
 
     @RequestMapping(value = "reroute", method = RequestMethod.GET)
