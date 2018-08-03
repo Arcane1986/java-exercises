@@ -1,16 +1,28 @@
-package com.rich.cheesemvc.User;
+package com.rich.cheesemvc.models.User;
 
+import org.hibernate.validator.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashMap;
 
 public class User {
     private int id;
+
+    @NotNull
+    @Size(min = 5,max = 15)
     private String username;
+
+    @Email
     private String email;
+
+    @NotNull
+    @Size(min = 6)
     private String password;
 
     public User() {}
 
     public User(String username, String email, String password) {
+        this();
         this.username = username;
         this.email = email;
         this.password = password;
@@ -27,6 +39,8 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+    public String getPassword() {return password;}
 
     public void setId(int id) {
         this.id = id;

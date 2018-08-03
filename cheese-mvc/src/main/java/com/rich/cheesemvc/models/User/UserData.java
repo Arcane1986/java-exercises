@@ -1,7 +1,6 @@
 package com.rich.cheesemvc.models.User;
 
 import java.util.HashMap;
-import com.rich.cheesemvc.User.User;
 
 public class UserData {
     private static HashMap<Integer,User> users = new HashMap<>();

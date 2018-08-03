@@ -1,12 +1,14 @@
 package com.rich.cheesemvc.controllers;
 
+import com.rich.cheesemvc.models.User.User;
 import com.rich.cheesemvc.models.User.UserData;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import com.rich.cheesemvc.User.User;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 
 @Controller
@@ -28,18 +30,25 @@ public class UserController {
     }
 
     @RequestMapping(value="/add", method = { RequestMethod.POST, RequestMethod.GET})
-    public String add(Model model, @ModelAttribute User user, String verify, HttpServletRequest req){
-        if (req.getMethod().equals("GET"))return "user/add";
+    public String add(Model model, @ModelAttribute @Valid User newUser, Errors errors, String verify, HttpServletRequest req){
+        if (req.getMethod().equals("GET")) {
+            model.addAttribute(new User());
+            return "user/add";
+        }
+        HashMap<String,String> otherErrors = newUser.verifyData(verify);
+        model.addAttribute("user",newUser);
 
-        HashMap<String,String> errors = user.verifyData(verify);
-        model.addAttribute("user",user);
-
-        if (errors.size()>0){
-            model.addAttribute("errors",errors);
+        if (otherErrors.size()>0){
+            model.addAttribute("otherErrors",otherErrors);
             return "user/add";
         }
 
-        UserData.addUser(user);
-        return "redirect:?username="+user.getUsername();
+        if (errors.hasErrors()){
+                model.addAttribute("user",newUser);
+                return "user/add";
+        }
+
+        UserData.addUser(newUser);
+        return "redirect:?username="+newUser.getUsername();
     }
 }
