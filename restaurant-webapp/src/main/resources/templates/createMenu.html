@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create Menu</title>
+    <h1>Create Restaurant Menu</h1>
+</head>
+<body>
+<a href="/">Home</a>
+    <h1 th:if="${error}" th:text="${error}" style="color:red;font-family: cursive;"></h1>
+    <form action="create" method="post">
+        <label name="restaurant">Restaurant Name</label>
+        <input type="text" name="restaurant"/>
+        <input type="submit" value="Add Restaurant" />
+    </form>
+</body>
+</html>

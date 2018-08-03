@@ -1,4 +1,4 @@
-package com.rich.cheesemvc.Controllers;
+package com.rich.cheesemvc.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

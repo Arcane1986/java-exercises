@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create Menu Items</title>
+    <h1 th:text="'Create '+${menu.restaurantName}+' Menu Items'"></h1>
+</head>
+<body>
+    <h1 th:if="${error}" th:text="${error}" style="color:red;font-family: cursive;"></h1>
+    <form action="create-item" method="post">
+
+        <table style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;font-weight:bold;">
+            <tbody>
+            <tr>
+                <td><input type="hidden" name="menu-id" th:value="${menu.id}" /></td>
+            </tr>
+            <tr>
+                <td><label name="item-name">Item Name</label></td>
+                <td><input type="text" name="item-name"/></td>
+            </tr>
+            <tr>
+                <td><label name="item-category">Menu Category</label></td>
+                <td><select name="item-category">
+                    <option>Starters</option>
+                    <option>Entrees</option>
+                    <option>Desserts</option>
+                    <option>Drinks</option>
+                    <option>Alcohol</option>
+                </select> </td>
+            </tr>
+            <tr>
+                <td><label name="item-description">Item Description</label></td>
+                <td><textarea type="text" name="item-description"/></td>
+            </tr>
+            <tr>
+                <td><label name="item-price">Item Price</label></td>
+                <td><input type="number" name="item-price"/></td>
+            </tr>
+            <tr>
+                <td><label name="item-new">New Item</label></td>
+                <td><input type="radio" name="item-new" value="Yes"/>Yes
+                <input type="radio" name="item-new" value="No" />No</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Create Item"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+    <br/><br/><br/>
+
+    <form action="remove-item" method="post">
+        <table th:if="${menuItems} and ${menuItems.size()}" style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;width:75%;font-weight:bold;">
+            <caption th:text="${menu.restaurantName}+'s Menu Items'"></caption>
+            <thead style="background-color:green;">
+            <tr>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Description</td>
+                <td>Price</td>
+                <td>New</td>
+                <td>Remove Item</td>
+            </tr>
+            </thead>
+            <tbody style="background-color:blue;">
+            <tr th:each="item:${menuItems}">
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.itemCategory}"></td>
+                <td th:text="${item.itemDescription}"></td>
+                <td th:text="'$'+${item.itemPrice}"></td>
+                <td th:text="${item.itemNew}"></td>
+                <td>
+                    <input type="hidden" name="menuid" th:value="${menu.id}"/>
+                    <input type="checkbox" name="removeItem" th:value="${item.itemid}" th:text="Remove"/>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+        <br/><br/>
+        <input th:if="${menuItems} and ${menuItems.size()}" type="submit" value="Update" style="padding:5px; top-margin:10px;font-size:16px;"/>
+    </form>
+</body>
+</html>

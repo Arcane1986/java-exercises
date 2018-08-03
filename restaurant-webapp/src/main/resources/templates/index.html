@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Home</title>
+    <h1>Menus</h1>
+</head>
+<body>
+<center>
+    <th:block th:unless="${menus.isEmpty()}" th:each="menu:${menus}" style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;width:75%;font-weight:bold;">
+    <table style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;width:75%;font-weight:bold;">
+        <caption><h1 th:text="${menu.restaurantName}"></h1></caption>
+        <th:block th:each="item:${menu.menuItems}">
+        <tr><td><table th:if="${item.itemCategory}==Starters" style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;width:60%;font-weight:bold;"><caption th:text="${item.itemCategory}"></caption>
+            <tr>
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.itemDescription}"></td>
+                <td th:text="${item.itemPrice}"></td>
+                <td th:text="${item.itemNew}"></td>
+            </tr>
+        </table></td></tr>
+            <tr><td><table th:if="${item.itemCategory}==Entrees" style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;width:60%;font-weight:bold;"><caption th:text="${item.itemCategory}"></caption>
+            <tr>
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.itemDescription}"></td>
+                <td th:text="${item.itemPrice}"></td>
+                <td th:text="${item.itemNew}"></td>
+            </tr>
+            </table></td></tr>
+            <tr><td><table th:if="${item.itemCategory}==Desserts" style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;width:60%;font-weight:bold;"><caption th:text="${item.itemCategory}"></caption>
+            <tr>
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.itemDescription}"></td>
+                <td th:text="${item.itemPrice}"></td>
+                <td th:text="${item.itemNew}"></td>
+            </tr>
+            </table></td></tr>
+            <tr><td><table th:if="${item.itemCategory}==Drinks" style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;width:60%;font-weight:bold;"><caption th:text="${item.itemCategory}"></caption>
+            <tr>
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.itemDescription}"></td>
+                <td th:text="${item.itemPrice}"></td>
+                <td th:text="${item.itemNew}"></td>
+            </tr>
+            </table></td></tr>
+            <tr><td><table th:if="${item.itemCategory}==Alcohol" style="border:1px solid black; padding:10px; text-align:center; border-spacing: 5px;width:60%;font-weight:bold;"><caption th:text="${item.itemCategory}"></caption>
+            <tr>
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.itemDescription}"></td>
+                <td th:text="${item.itemPrice}"></td>
+                <td th:text="${item.itemNew}"></td>
+            </tr>
+            </table></td></tr>
+        </th:block>
+    </table>
+    </th:block>
+</center>
+</body>
+</html>
